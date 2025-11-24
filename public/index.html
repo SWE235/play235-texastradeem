@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Texas Trade'Em · Play235</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favi.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-left">
+        <img src="favi.png" class="logo-img" alt="SWE cube" />
+        <span class="logo-text">Texas Trade'Em</span>
+      </div>
+      <div class="header-right">
+        <button id="music-btn" class="icon-btn" title="Play soundtrack">♫</button>
+        <button id="sponsor-btn" class="btn ghost tiny">Sponsor</button>
+        <button id="rules-btn" class="btn ghost tiny">Rules</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Welcome -->
+      <section id="welcome-screen" class="screen active">
+        <div class="welcome-bg">
+          <div class="welcome-overlay">
+            <div class="hero">
+              <h1>3 Games, 1 Deal: 21, 25, 23.5%</h1>
+              <p class="hero-sub">
+                Swipe to inspect the 52 stocks in this deck, drawn from the Texas Trade'Em starter universe.
+                <button id="start-inline" class="btn primary inline">START</button>
+                to be dealt your hand and play against AI and a Hedge Fund manager.
+                <span class="hero-coming">Coming soon: play with a friend or join Andy's table.</span>
+              </p>
+            </div>
+
+            <div class="welcome-rail">
+              <div id="welcome-deck" class="welcome-deck"></div>
+            </div>
+
+            <div class="welcome-tagline">Discover · Experience · Master your Five.</div>
+
+            <div class="controls-row">
+              <div id="mode-toggle" class="mode-toggle">
+                <button class="mode-btn active" data-mode="YTD">YTD %</button>
+                <button class="mode-btn" data-mode="WEEKLY">Weekly %</button>
+              </div>
+              <button id="start-game-btn" class="btn primary">Start game</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Game -->
+      <section id="game-screen" class="screen">
+        <div class="game-top">
+          <div class="players">
+            <div class="player player-bb">
+              <button class="pill pill-bb" data-player="bb">BB</button>
+              <div class="player-text">
+                <div class="player-line">
+                  <span class="player-name">You</span>
+                  <span id="balance-bb" class="player-balance">$235</span>
+                </div>
+                <div id="scoreline-bb" class="player-score">R1: —  R2: —  Cards: 0  Return: –</div>
+              </div>
+            </div>
+            <div class="player player-ai">
+              <button class="pill pill-ai" data-player="ai">AI</button>
+              <div class="player-text">
+                <div class="player-line">
+                  <span class="player-name">Dealer</span>
+                  <span id="balance-ai" class="player-balance">$235</span>
+                </div>
+                <div id="scoreline-ai" class="player-score">R1: —  R2: —  Cards: 0  Return: –</div>
+              </div>
+            </div>
+            <div class="player player-hf">
+              <button class="pill pill-hf" data-player="hf">HF</button>
+              <div class="player-text">
+                <div class="player-line">
+                  <span class="player-name">Hedge Fund</span>
+                  <span id="balance-hf" class="player-balance">$235</span>
+                </div>
+                <div id="scoreline-hf" class="player-score">R1: —  R2: —  Cards: 0  Return: –</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls-row game-controls">
+            <div id="mode-toggle-game" class="mode-toggle">
+              <button class="mode-btn active" data-mode="YTD">YTD %</button>
+              <button class="mode-btn" data-mode="WEEKLY">Weekly %</button>
+            </div>
+            <div class="round-controls">
+              <span id="round-label" class="round-label">Round 1 of 3</span>
+              <button id="advance-round-btn" class="btn ghost small">Next round</button>
+              <button id="deal-new-btn" class="btn primary small">New deal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hands">
+          <section class="hand hand-bb">
+            <div class="hand-header">
+              <span class="hand-label hand-label-bb">BB</span>
+              <span class="hand-title">Your cards · <span id="count-bb">0</span>/5</span>
+            </div>
+            <div id="hand-bb" class="hand-cards"></div>
+          </section>
+          <section class="hand hand-ai">
+            <div class="hand-header">
+              <span class="hand-label hand-label-ai">AI</span>
+              <span class="hand-title">Dealer cards · <span id="count-ai">0</span>/5</span>
+            </div>
+            <div id="hand-ai" class="hand-cards"></div>
+          </section>
+          <section class="hand hand-hf">
+            <div class="hand-header">
+              <span class="hand-label hand-label-hf">HF</span>
+              <span class="hand-title">Hedge Fund cards · <span id="count-hf">0</span>/5</span>
+            </div>
+            <div id="hand-hf" class="hand-cards"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="session-row">
+        <span id="session-status">Free session · <span id="session-timer">05:00</span></span>
+      </div>
+      <div class="ticker">
+        <img src="favi.png" class="ticker-icon" alt="SWE cube" />
+        <div class="ticker-window">
+          <div id="ticker-track" class="ticker-track">
+            <span>Texas Trade'Em deck · 52 stocks · #FoYo5 · SWE235 · IfIWere.xyz · Buy the physical deck for $30 →</span>
+            <span>Texas Trade'Em deck · 52 stocks · #FoYo5 · SWE235 · IfIWere.xyz · Buy the physical deck for $30 →</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-cta">
+        <a id="buy-deck-link" href="#" class="btn buy">Buy deck $30</a>
+        <a href="https://swe235.com" target="_blank" class="btn ghost small">List your ticker</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Card popup -->
+  <div id="card-popup-backdrop" class="popup-backdrop hidden">
+    <div class="popup">
+      <button id="card-popup-close" class="popup-close">&times;</button>
+      <div class="popup-header">
+        <div id="popup-card-id" class="popup-card-id"></div>
+        <div id="popup-card-ticker" class="popup-card-ticker"></div>
+      </div>
+      <div class="popup-body">
+        <div class="popup-row">
+          <span>YTD:</span><span id="popup-ytd">–</span>
+        </div>
+        <div class="popup-row">
+          <span>Weekly:</span><span id="popup-weekly">–</span>
+        </div>
+        <div class="popup-row">
+          <span>Price:</span><span id="popup-price">–</span>
+        </div>
+        <div class="popup-row">
+          <span>PHITBALL:</span><span id="popup-phit">–</span>
+        </div>
+        <div class="popup-row">
+          <span>Back detail:</span><span id="popup-flag-label">–</span>
+        </div>
+        <div class="popup-bars">
+          <div class="bars-label">Last 10 weekly changes</div>
+          <div id="popup-bars" class="bars"></div>
+          <div id="popup-weeks" class="bars-weeks"></div>
+        </div>
+        <button id="popup-ask-ai" class="btn-link">Ask AI about this pattern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules popup -->
+  <div id="rules-backdrop" class="popup-backdrop hidden">
+    <div class="popup popup-wide">
+      <button id="rules-close" class="popup-close">&times;</button>
+      <div class="popup-header">
+        <div class="popup-card-ticker">Texas Trade'Em Rules</div>
+      </div>
+      <div class="popup-body rules-body">
+        <img src="rules-art.jpg" class="rules-art" alt="Texas Trade'Em" />
+        <p>
+          Texas Trade'Em is a stock-powered twist on blackjack and poker. You, the Dealer (AI), and the Hedge Fund (HF) are
+          each dealt a hand from the same 52-stock deck. Every card carries a stock ticker and a performance score.
+        </p>
+        <ul>
+          <li>Swipe the welcome deck to preview all 52 stocks before you start.</li>
+          <li>Tap START to deal two cards each to <span class="pill pill-bb mini">BB</span>, <span class="pill pill-ai mini">AI</span>, and <span class="pill pill-hf mini">HF</span>.</li>
+          <li>Tap a colored pill to <strong>Hit</strong> for that player (add a card), up to 5 cards.</li>
+          <li>Round 1 aims for a 21-style profile with a $20 stake. Round 2 extends risk to a 25-style profile with a $30 stake.</li>
+          <li>Round 3 compares 5-card portfolio returns for a $50 payoff. Best return wins.</li>
+          <li>Use the YTD / Weekly toggle to flip between long-term and recent performance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sponsor popup -->
+  <div id="sponsor-backdrop" class="popup-backdrop hidden">
+    <div class="popup popup-wide">
+      <button id="sponsor-close" class="popup-close">&times;</button>
+      <div class="popup-header">
+        <div class="popup-card-ticker">Sponsor Texas Trade'Em</div>
+      </div>
+      <div class="popup-body rules-body">
+        <img src="welcome-bg.webp" class="rules-art" alt="Texas Trade'Em table" />
+        <p>
+          Sponsorships of the (not real money) Texas Trade'Em game are available on a weekly basis. We love partners who
+          want to reward players with prizes or special experiences, but it's not required. During your week we can track
+          a sponsor-branded leaderboard on Play235.com/win and even tune the game rules or prize triggers for your campaign.
+        </p>
+        <p>Click the button below to email Andy@SWE235.com and share how you'd like your sponsorship to look.</p>
+        <div class="footer-cta">
+          <button id="sponsor-email-btn" class="btn primary small">Email Andy to Sponsor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Session popup -->
+  <div id="session-popup-backdrop" class="popup-backdrop hidden">
+    <div class="popup">
+      <button id="session-close" class="popup-close">&times;</button>
+      <div class="popup-header">
+        <div class="popup-card-ticker">Session ended</div>
+      </div>
+      <div class="popup-body">
+        <p>
+          Your free 5-minute session has wrapped. To keep playing, you can either pick up the physical Texas Trade'Em deck,
+          or grab just five more minutes of digital play.
+        </p>
+        <div class="footer-cta">
+          <a id="session-buy-btn" class="btn primary small" href="#">Buy the deck</a>
+          <button id="session-restart-btn" class="btn ghost small">Just 5 more minutes?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
